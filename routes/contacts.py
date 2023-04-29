@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect
 from models.contact import Contact
 from utils.db import db
 
@@ -20,7 +20,7 @@ def add_contact():
     db.session.commit()
 
     print(new_contact)
-    return "saving a contact"
+    return redirect('/')
 
 
 @contacts.route("/update")
