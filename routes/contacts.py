@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, render_template, request, redirect, url_for
 from models.contact import Contact
 from utils.db import db
 
@@ -6,8 +6,9 @@ contacts = Blueprint("contacts", __name__)
 
 
 @contacts.route("/")
-def home():
-    return render_template("index.html")
+def index():
+    contacts = Contact.query.all()
+    return render_template("index.html", contacts=contacts)
 
 
 @contacts.route("/new", methods=["POST"])
@@ -20,17 +21,29 @@ def add_contact():
     db.session.commit()
 
     print(new_contact)
-    return redirect('/')
+    return redirect(url_for("contacts.index"))
 
 
-@contacts.route("/update")
-def update():
-    return "update a contact"
+@contacts.route("/update/<id>", methods=["POST", "GET"])
+def update(id):
+    contact = Contact.query.get(id)
+    if request.method == "POST":
+        contact.fullname = request.form["fullname"]
+        contact.email = request.form["email"]
+        contact.phone = request.form["phone"]
+        db.session.commit()
+        return redirect(url_for("contacts.index"))
+
+    contact = Contact.query.get(id)
+    return render_template("update.html", contact=contact)
 
 
-@contacts.route("/delete")
-def delete():
-    return "delete a contact"
+@contacts.route("/delete/<id>")
+def delete(id):
+    contact = Contact.query.get(id)
+    db.session.delete(contact)
+    db.session.commit()
+    return redirect(url_for("contacts.index"))
 
 
 @contacts.route("/about")
