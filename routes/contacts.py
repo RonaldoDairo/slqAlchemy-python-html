@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from models.contact import Contact
 from utils.db import db
 
@@ -20,7 +20,7 @@ def add_contact():
     db.session.add(new_contact)
     db.session.commit()
 
-    print(new_contact)
+    flash("Contact added succesfully")
     return redirect(url_for("contacts.index"))
 
 
@@ -35,6 +35,7 @@ def update(id):
         return redirect(url_for("contacts.index"))
 
     contact = Contact.query.get(id)
+    flash("Contact updated succesfully")
     return render_template("update.html", contact=contact)
 
 
@@ -43,6 +44,7 @@ def delete(id):
     contact = Contact.query.get(id)
     db.session.delete(contact)
     db.session.commit()
+    flash('Contact deleted succesfully')
     return redirect(url_for("contacts.index"))
 
 

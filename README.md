@@ -5,6 +5,7 @@
 ## f1 to looking for formate and to download use black
 ## Flask SQLAlchemy CRUD || instalation pip install Flask-SQLAlchemy
 ## pip install mysqlclient
+## to enter to the database mysql -h localhost -u root -p
 this project is a CRUD application using flask and mysql using SQLAlchemy
 
 ### Installation with docker-compose
