@@ -6,6 +6,8 @@
 ## Flask SQLAlchemy CRUD || instalation pip install Flask-SQLAlchemy
 ## pip install mysqlclient
 ## to enter to the database mysql -h localhost -u root -p
+## para la variable de entorno pip install python-dotenv
+## para ver todo los que debo instalar para que funcione pip freeze > requirements.txt
 this project is a CRUD application using flask and mysql using SQLAlchemy
 
 ### Installation with docker-compose
